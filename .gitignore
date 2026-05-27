@@ -1,0 +1,12 @@
+@"
+node_modules
+.next
+out
+.env
+.env.local
+.env.production
+.env.development
+dist
+build
+.DS_Store
+"@ | Out-File -Encoding utf8 .gitignore
