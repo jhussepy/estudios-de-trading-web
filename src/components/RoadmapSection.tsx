@@ -1,17 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowDownRight, Layers3 } from "lucide-react";
+import { BookOpen, GitBranch, Layers3 } from "lucide-react";
 import RoadmapCard from "@/components/RoadmapCard";
-import { Badge } from "@/components/ui/badge";
 import { roadmapData, roadmapPhases, type RoadmapAccent } from "@/data/roadmapData";
 
 const phaseAccent: Record<RoadmapAccent, string> = {
-  cyan: "border-cyan-300/25 bg-cyan-300/10 text-cyan-100",
-  violet: "border-violet-300/25 bg-violet-400/10 text-violet-100",
-  emerald: "border-emerald-300/25 bg-emerald-300/10 text-emerald-100",
-  amber: "border-amber-300/25 bg-amber-300/10 text-amber-100",
-  rose: "border-rose-300/25 bg-rose-300/10 text-rose-100",
+  cyan: "github-label-blue",
+  violet: "github-label-purple",
+  emerald: "github-label-green",
+  amber: "github-label-yellow",
+  rose: "github-label-red",
 };
 
 const dividerAccent: Record<RoadmapAccent, string> = {
@@ -27,14 +26,14 @@ export default function RoadmapSection() {
     <section id="roadmap" className="container-shell py-14 md:py-20">
       <div className="mb-10 flex flex-col justify-between gap-4 md:flex-row md:items-end">
         <div>
-          <p className="section-kicker text-violet-200">Roadmap de aprendizaje</p>
+          <p className="section-kicker text-[var(--github-done)]">Repository roadmap</p>
           <h2 className="mt-3 text-3xl font-black text-white md:text-4xl">
-            12 semanas de trading institucional
+            12 repositorios de aprendizaje institucional
           </h2>
         </div>
         <p className="max-w-xl text-sm leading-6 muted-readable">
-          Cada fase agrupa teoria, practica y entregables para convertir lectura de mercado en un
-          sistema auditable.
+          Cada fase agrupa repositorios de estudio con descripción, labels, entregables y módulos
+          relacionados.
         </p>
       </div>
 
@@ -53,10 +52,10 @@ export default function RoadmapSection() {
               <div
                 className={`mb-4 h-px bg-gradient-to-r ${dividerAccent[phase.accent]} via-white/10 to-transparent`}
               />
-              <div className="mb-5 grid gap-4 rounded-lg border border-white/10 bg-white/[0.035] p-4 md:grid-cols-[1fr_auto] md:items-center">
+              <div className="github-repo-header mb-5 grid gap-4 p-4 md:grid-cols-[1fr_auto] md:items-center">
                 <div className="flex gap-4">
                   <span
-                    className={`flex size-11 shrink-0 items-center justify-center rounded-md border ${phaseAccent[phase.accent]}`}
+                    className="flex size-11 shrink-0 items-center justify-center rounded-md border border-[var(--github-border)] bg-[var(--github-canvas-subtle)] text-[var(--github-accent)]"
                   >
                     <Layers3 className="size-5" />
                   </span>
@@ -68,14 +67,15 @@ export default function RoadmapSection() {
                   </div>
                 </div>
                 <div className="flex flex-wrap gap-2 md:justify-end">
-                  <Badge variant="muted">{phase.weeks.length} semanas</Badge>
-                  <Badge variant={phase.difficulty === "Profesional" ? "warning" : "secondary"}>
-                    {phase.difficulty}
-                  </Badge>
-                  <Badge className={phaseAccent[phase.accent]}>
-                    <ArrowDownRight className="mr-1 size-3" />
+                  <span className="github-label">
+                    <BookOpen className="size-3.5" />
+                    {phase.weeks.length} repos
+                  </span>
+                  <span className="github-label github-label-yellow">{phase.difficulty}</span>
+                  <span className={`github-label ${phaseAccent[phase.accent]}`}>
+                    <GitBranch className="size-3.5" />
                     Fase {phaseIndex + 1}
-                  </Badge>
+                  </span>
                 </div>
               </div>
 

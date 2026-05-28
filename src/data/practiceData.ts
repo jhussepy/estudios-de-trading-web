@@ -22,10 +22,20 @@ export const progressCurve = [
 ];
 
 export const assistantStatus = [
-  { label: "Estado", value: "Informativo" },
-  { label: "Trading", value: "Disabled" },
-  { label: "Data mode", value: "Simulated" },
-  { label: "Risk first", value: "Active" },
+  { label: "status", value: "simulated" },
+  { label: "execution", value: "disabled" },
+  { label: "risk gate", value: "active" },
+  { label: "data mode", value: "educational" },
+];
+
+export const workflowChecks = [
+  { state: "success", label: "Load market context" },
+  { state: "success", label: "Detect H4/H1 bias" },
+  { state: "success", label: "Scan liquidity" },
+  { state: "success", label: "Validate M15 structure" },
+  { state: "pending", label: "Wait for M5 confirmation" },
+  { state: "warning", label: "Check macro risk" },
+  { state: "danger", label: "Execution layer disabled" },
 ];
 
 export const assistantCockpitPanels = [
@@ -42,7 +52,7 @@ export const assistantCockpitPanels = [
     title: "Structure",
     items: [
       ["M15", "Barrida + CHoCH"],
-      ["M5", "Confirmacion pendiente"],
+      ["M5", "Confirmación pendiente"],
       ["Contexto", "Setup potencial"],
     ],
     accent: "violet",
@@ -52,7 +62,7 @@ export const assistantCockpitPanels = [
     items: [
       ["Asian low", "Swept"],
       ["Next pool", "Sell-side liquidity"],
-      ["Equal highs/lows", "Observando zona"],
+      ["Equal highs/lows", "Observar zona"],
     ],
     accent: "emerald",
   },
@@ -86,100 +96,97 @@ export const assistantCockpitPanels = [
 ];
 
 export const assistantLogs = [
-  "[09:30] H4/H1 bias aligned: bearish",
-  "[09:32] Liquidity event detected: Asian low sweep",
-  "[09:34] M15 structure shift: CHoCH bearish",
-  "[09:36] Volume context: near HVN",
-  "[09:38] M5 confirmation: pending",
-  "[09:39] Risk gate: medium",
-  "[09:40] Recommendation: wait for confirmation",
+  "[09:30:02] core.start()",
+  "[09:30:04] bias.h4 = bearish",
+  "[09:30:05] bias.h1 = bearish",
+  "[09:30:08] liquidity.event = asian_low_sweep",
+  "[09:30:11] structure.m15 = bearish_choch",
+  "[09:30:13] volume.context = near_hvn",
+  "[09:30:15] orderflow.status = pending",
+  "[09:30:17] risk.level = medium",
+  "[09:30:19] execution.enabled = false",
+  "[09:30:21] recommendation = wait_for_m5_confirmation",
 ];
 
 export const assistantFinalReport = [
   "Setup potencial bajista.",
-  "No ejecutar todavia.",
-  "Esperar confirmacion en M5.",
+  "No ejecutar todavía.",
+  "Esperar confirmación en M5.",
   "Riesgo medio por noticias y contexto de volumen.",
 ];
 
 export const backtestingCards = [
   {
-    title: "Backtesting visual",
-    value: "100+ casos",
-    detail: "Capturas antes/despues, hipotesis y reglas aplicadas.",
+    title: "Visual Replay",
+    value: "Evidence collected",
+    detail: "Contexto antes/después, hipótesis y reacción del precio.",
   },
   {
-    title: "Replay con Volume Profile",
-    value: "Sesion a sesion",
-    detail: "Lectura de aceptacion, rechazo y desplazamiento.",
+    title: "Setup Review",
+    value: "Review required",
+    detail: "Cada setup debe pasar contexto, estructura, volumen y riesgo.",
   },
   {
-    title: "Journal de setups",
-    value: "Checklist",
-    detail: "Registro estructurado para repetir solo setups validos.",
+    title: "Session Metrics",
+    value: "Metrics pending",
+    detail: "Separación por Asia, Londres y Nueva York para detectar ventaja real.",
   },
   {
-    title: "Metricas por sesion",
-    value: "Asia/Londres/NY",
-    detail: "Separacion por horario para detectar ventaja real.",
+    title: "Risk Metrics",
+    value: "Risk first",
+    detail: "Validación de exposición, volatilidad y noticias antes de confiar.",
   },
   {
-    title: "Win rate",
-    value: "Medible",
-    detail: "Por setup, activo, sesion y condicion de volatilidad.",
+    title: "Drawdown Review",
+    value: "Needs more data",
+    detail: "Revisión de rachas adversas y profundidad de pérdida simulada.",
   },
   {
-    title: "Profit factor",
-    value: "Calidad",
-    detail: "Relacion entre ganancia bruta y perdida bruta simulada.",
-  },
-  {
-    title: "Drawdown",
-    value: "Control",
-    detail: "Profundidad de perdida para proteger disciplina.",
-  },
-  {
-    title: "Expectancy",
-    value: "Decision",
-    detail: "Resultado esperado por operacion simulada.",
+    title: "Expectancy Check",
+    value: "Approved setup",
+    detail: "Resultado esperado por operación simulada cuando la muestra es suficiente.",
   },
 ];
 
 export const backtestingPrinciples = [
-  "Cada operacion se convierte en dato.",
-  "Cada setup se valida antes de confiar en el.",
+  "Cada setup debe pasar revisión: contexto, proceso documentado, resultado y métrica.",
+  "Cada operación se convierte en dato.",
   "Cada error se convierte en regla.",
 ];
 
 export const journalSections = [
   {
     title: "Contexto",
+    status: "Behavior pattern",
     fields: [
       ["Activo", "EUR/USD"],
       ["Fecha", "2026-05-26"],
-      ["Sesion", "Londres"],
-      ["Direccion H4/H1", "Bajista / Bajista"],
+      ["Sesión", "Londres"],
+      ["Dirección H4/H1", "Bajista / Bajista"],
     ],
   },
   {
     title: "Setup",
+    status: "Error detected",
     fields: [
-      ["Liquidez tomada", "Minimo asiatico"],
+      ["Liquidez tomada", "Mínimo asiático"],
       ["BOS/CHoCH", "CHoCH bajista M15"],
-      ["FVG", "Bajista pendiente de mitigacion"],
-      ["POC/HVN/LVN", "Precio cerca de HVN intradia"],
+      ["FVG", "Bajista pendiente de mitigación"],
+      ["POC/HVN/LVN", "Precio cerca de HVN intradía"],
     ],
   },
   {
-    title: "Gestion",
+    title: "Gestión",
+    status: "Rule updated",
     fields: [
       ["Entrada simulada", "Solo si M5 confirma imbalance"],
-      ["SL", "Sobre swing de mitigacion"],
+      ["SL", "Sobre swing de mitigación"],
       ["TP", "Siguiente pool de liquidez"],
     ],
   },
   {
     title: "Resultado",
+    status: "Weekly review",
     fields: [
       ["Resultado", "Pendiente"],
       ["Calidad del setup", "Incompleto"],
@@ -187,9 +194,10 @@ export const journalSections = [
     ],
   },
   {
-    title: "Leccion",
+    title: "Lección",
+    status: "Lesson created",
     fields: [
-      ["Leccion aprendida", "Esperar confirmacion evita entradas prematuras"],
+      ["Lección aprendida", "Esperar confirmación evita entradas prematuras"],
       ["Regla nueva", "Evitar operar cerca de noticias de alto impacto"],
     ],
   },

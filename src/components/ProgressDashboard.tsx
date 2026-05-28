@@ -3,7 +3,6 @@
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { Award, BarChart3, BookOpenCheck, CalendarDays, Gauge } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { progressStats } from "@/data/practiceData";
@@ -29,9 +28,9 @@ const stats = [
     accent: "text-violet-200",
   },
   {
-    label: "Modulos completados",
+    label: "Módulos completados",
     value: `${progressStats.completedModules}/24`,
-    detail: "Lectura y practica",
+    detail: "Lectura y práctica",
     icon: BookOpenCheck,
     accent: "text-emerald-200",
   },
@@ -62,36 +61,36 @@ export default function ProgressDashboard() {
       >
         <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div>
-            <p className="section-kicker text-cyan-200">Plan de estudio</p>
+            <p className="section-kicker text-[var(--github-accent)]">Repository progress</p>
             <h2 className="mt-3 text-3xl font-black text-white md:text-4xl">
               Progreso del estudiante
             </h2>
           </div>
           <p className="max-w-xl text-sm leading-6 muted-readable">
-            Un panel compacto para ver avance, practica registrada y madurez del proceso antes de
-            pasar a modulos mas exigentes.
+            Un panel compacto para ver avance, práctica registrada y madurez del proceso antes de
+            pasar a módulos más exigentes.
           </p>
         </div>
 
         <div className="grid gap-5 lg:grid-cols-[0.92fr_1.08fr]">
-          <Card className="premium-border">
+          <Card className="github-card">
             <CardHeader>
               <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                 <div>
                   <CardTitle>Estado general</CardTitle>
                   <CardDescription>Seguimiento modular del roadmap institucional.</CardDescription>
                 </div>
-                <Badge variant="emerald">Study mode</Badge>
+                <span className="github-label github-label-green">Study mode</span>
               </div>
             </CardHeader>
             <CardContent>
-              <div className="mb-6 rounded-lg border border-cyan-300/20 bg-cyan-300/10 p-4">
+              <div className="mb-6 rounded-lg border border-[var(--github-border)] bg-[var(--github-bg-subtle)] p-4">
                 <div className="mb-3 flex items-center justify-between text-sm">
                   <span className="font-semibold text-white">Progreso total</span>
-                  <span className="font-bold text-cyan-100">{progressStats.totalProgress}%</span>
+                  <span className="font-bold text-[#cae8ff]">{progressStats.totalProgress}%</span>
                 </div>
                 <Progress value={progressStats.totalProgress} />
-                <p className="mt-3 text-sm leading-6 text-cyan-50/80">
+                <p className="mt-3 text-sm leading-6 text-[#c9d1d9]">
                   El progreso no mide velocidad; mide consistencia.
                 </p>
               </div>
@@ -103,7 +102,7 @@ export default function ProgressDashboard() {
                     <motion.div
                       key={stat.label}
                       whileHover={{ y: -3 }}
-                      className="hover-lift rounded-md border border-white/10 bg-white/[0.045] p-4"
+                      className="github-card-hover rounded-md border border-[var(--github-border)] bg-[var(--github-bg-subtle)] p-4"
                     >
                       <div className="mb-4 flex items-center justify-between">
                         <Icon className={`size-5 ${stat.accent}`} />
@@ -123,7 +122,7 @@ export default function ProgressDashboard() {
             </CardContent>
           </Card>
 
-          <Card className="premium-border">
+          <Card className="github-card">
             <CardHeader>
               <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                 <div>
@@ -131,18 +130,18 @@ export default function ProgressDashboard() {
                   <CardDescription>Progreso y volumen de backtests por semana.</CardDescription>
                 </div>
                 <div className="flex gap-2">
-                  <Badge>Progreso</Badge>
-                  <Badge variant="secondary">Backtests</Badge>
+                  <span className="github-label github-label-blue">Progreso</span>
+                  <span className="github-label github-label-purple">Backtests</span>
                 </div>
               </div>
             </CardHeader>
             <CardContent>
-              <div className="h-72 min-w-0 rounded-lg border border-white/10 bg-black/20 p-2">
+              <div className="h-72 min-w-0 rounded-lg border border-[var(--github-border)] bg-[var(--github-bg-subtle)] p-2">
                 <ProgressChart />
               </div>
               <div className="mt-4 grid gap-3 sm:grid-cols-3">
-                {["Reglas claras", "Practica constante", "Riesgo primero"].map((label) => (
-                  <div key={label} className="rounded-md border border-white/10 bg-white/[0.035] px-3 py-2 text-sm text-slate-300">
+                {["Reglas claras", "Práctica constante", "Riesgo primero"].map((label) => (
+                  <div key={label} className="rounded-md border border-[var(--github-border)] bg-[var(--github-bg-subtle)] px-3 py-2 text-sm text-[#c9d1d9]">
                     {label}
                   </div>
                 ))}

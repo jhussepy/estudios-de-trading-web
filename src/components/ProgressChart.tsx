@@ -1,49 +1,88 @@
 "use client";
 
-import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { progressCurve } from "@/data/practiceData";
 
+const chartWidth = 720;
+const chartHeight = 288;
+const padding = { top: 24, right: 22, bottom: 38, left: 42 };
+const maxValue = 140;
+
+function pointsFor(key: "progreso" | "backtests") {
+  const plotWidth = chartWidth - padding.left - padding.right;
+  const plotHeight = chartHeight - padding.top - padding.bottom;
+
+  return progressCurve.map((item, index) => {
+    const x = padding.left + (index / (progressCurve.length - 1)) * plotWidth;
+    const y = padding.top + plotHeight - (item[key] / maxValue) * plotHeight;
+    return [x, y] as const;
+  });
+}
+
+function linePath(points: ReadonlyArray<readonly [number, number]>) {
+  return points.map(([x, y], index) => `${index === 0 ? "M" : "L"} ${x} ${y}`).join(" ");
+}
+
+function areaPath(points: ReadonlyArray<readonly [number, number]>) {
+  const baseline = chartHeight - padding.bottom;
+  return `${linePath(points)} L ${points[points.length - 1][0]} ${baseline} L ${points[0][0]} ${baseline} Z`;
+}
+
 export default function ProgressChart() {
+  const progressPoints = pointsFor("progreso");
+  const backtestPoints = pointsFor("backtests");
+  const gridLines = [0, 35, 70, 105, 140];
+  const baseline = chartHeight - padding.bottom;
+
   return (
-    <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
-      <AreaChart data={progressCurve} margin={{ left: 0, right: 8, top: 12, bottom: 0 }}>
-        <defs>
-          <linearGradient id="progressGradient" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="5%" stopColor="#22d3ee" stopOpacity={0.45} />
-            <stop offset="95%" stopColor="#22d3ee" stopOpacity={0} />
-          </linearGradient>
-          <linearGradient id="backtestGradient" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="5%" stopColor="#a78bfa" stopOpacity={0.3} />
-            <stop offset="95%" stopColor="#a78bfa" stopOpacity={0} />
-          </linearGradient>
-        </defs>
-        <CartesianGrid stroke="rgba(148,163,184,0.12)" vertical={false} />
-        <XAxis dataKey="name" tickLine={false} axisLine={false} tick={{ fill: "#94a3b8" }} />
-        <YAxis tickLine={false} axisLine={false} tick={{ fill: "#94a3b8" }} width={34} />
-        <Tooltip
-          cursor={{ stroke: "rgba(34,211,238,0.35)" }}
-          contentStyle={{
-            background: "rgba(2, 6, 23, 0.94)",
-            border: "1px solid rgba(125, 211, 252, 0.22)",
-            borderRadius: "8px",
-            color: "#e2e8f0",
-          }}
-        />
-        <Area
-          type="monotone"
-          dataKey="progreso"
-          stroke="#22d3ee"
-          strokeWidth={2}
-          fill="url(#progressGradient)"
-        />
-        <Area
-          type="monotone"
-          dataKey="backtests"
-          stroke="#a78bfa"
-          strokeWidth={2}
-          fill="url(#backtestGradient)"
-        />
-      </AreaChart>
-    </ResponsiveContainer>
+    <svg
+      aria-label="Curva esperada de progreso y backtests"
+      className="h-full w-full overflow-visible"
+      role="img"
+      viewBox={`0 0 ${chartWidth} ${chartHeight}`}
+      preserveAspectRatio="none"
+    >
+      <defs>
+        <linearGradient id="svgProgressGradient" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%" stopColor="#58a6ff" stopOpacity="0.34" />
+          <stop offset="100%" stopColor="#58a6ff" stopOpacity="0" />
+        </linearGradient>
+        <linearGradient id="svgBacktestGradient" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%" stopColor="#a371f7" stopOpacity="0.26" />
+          <stop offset="100%" stopColor="#a371f7" stopOpacity="0" />
+        </linearGradient>
+      </defs>
+
+      {gridLines.map((value) => {
+        const y = padding.top + (1 - value / maxValue) * (baseline - padding.top);
+        return (
+          <g key={value}>
+            <line
+              x1={padding.left}
+              x2={chartWidth - padding.right}
+              y1={y}
+              y2={y}
+              stroke="rgba(139, 148, 158, 0.16)"
+            />
+            <text x={10} y={y + 4} fill="#8b949e" fontSize="11">
+              {value}
+            </text>
+          </g>
+        );
+      })}
+
+      <path d={areaPath(backtestPoints)} fill="url(#svgBacktestGradient)" />
+      <path d={areaPath(progressPoints)} fill="url(#svgProgressGradient)" />
+      <path d={linePath(backtestPoints)} fill="none" stroke="#a371f7" strokeWidth="2.5" />
+      <path d={linePath(progressPoints)} fill="none" stroke="#58a6ff" strokeWidth="2.5" />
+
+      {progressCurve.map((item, index) => {
+        const x = progressPoints[index][0];
+        return (
+          <text key={item.name} x={x} y={chartHeight - 12} fill="#8b949e" fontSize="11" textAnchor="middle">
+            {item.name}
+          </text>
+        );
+      })}
+    </svg>
   );
 }

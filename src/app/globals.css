@@ -20,6 +20,24 @@
   --border: 203 34% 20%;
   --input: 205 28% 18%;
   --ring: 187 92% 53%;
+  --github-bg: #0d1117;
+  --github-bg-subtle: #010409;
+  --github-canvas: #161b22;
+  --github-canvas-subtle: #21262d;
+  --github-border: #30363d;
+  --github-border-muted: #21262d;
+  --github-text: #f0f6fc;
+  --github-muted: #8b949e;
+  --github-accent: #58a6ff;
+  --github-accent-muted: rgba(88, 166, 255, 0.16);
+  --github-success: #3fb950;
+  --github-success-muted: rgba(63, 185, 80, 0.15);
+  --github-attention: #d29922;
+  --github-attention-muted: rgba(210, 153, 34, 0.15);
+  --github-danger: #f85149;
+  --github-danger-muted: rgba(248, 81, 73, 0.15);
+  --github-done: #a371f7;
+  --github-done-muted: rgba(163, 113, 247, 0.15);
 }
 
 * {
@@ -39,10 +57,10 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   background:
-    radial-gradient(circle at 12% 6%, rgba(34, 211, 238, 0.17), transparent 28rem),
-    radial-gradient(circle at 86% 18%, rgba(139, 92, 246, 0.14), transparent 30rem),
+    radial-gradient(circle at 12% 6%, rgba(88, 166, 255, 0.16), transparent 28rem),
+    radial-gradient(circle at 86% 18%, rgba(163, 113, 247, 0.13), transparent 30rem),
     radial-gradient(circle at 78% 78%, rgba(16, 185, 129, 0.09), transparent 30rem),
-    #030712;
+    var(--github-bg);
   color: hsl(var(--foreground));
   font-family:
     Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
@@ -190,5 +208,190 @@ body {
   .neon-divider {
     height: 1px;
     background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.55), rgba(139, 92, 246, 0.45), transparent);
+  }
+
+  .github-card {
+    border: 1px solid var(--github-border);
+    border-radius: 8px;
+    background:
+      linear-gradient(180deg, rgba(22, 27, 34, 0.96), rgba(13, 17, 23, 0.92)),
+      var(--github-canvas);
+    box-shadow: 0 16px 50px rgba(1, 4, 9, 0.34);
+  }
+
+  .github-card-hover {
+    transition:
+      border-color 180ms ease,
+      background 180ms ease,
+      box-shadow 180ms ease,
+      transform 180ms ease;
+  }
+
+  .github-card-hover:hover {
+    border-color: rgba(88, 166, 255, 0.55);
+    background:
+      linear-gradient(180deg, rgba(22, 27, 34, 0.98), rgba(13, 17, 23, 0.96)),
+      var(--github-canvas);
+    box-shadow: 0 18px 56px rgba(1, 4, 9, 0.4), 0 0 28px rgba(88, 166, 255, 0.09);
+    transform: translateY(-2px);
+  }
+
+  .github-label {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    gap: 0.35rem;
+    border: 1px solid var(--github-border);
+    border-radius: 999px;
+    background: var(--github-canvas-subtle);
+    padding: 0.22rem 0.58rem;
+    color: var(--github-text);
+    font-size: 0.72rem;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .github-label-blue {
+    border-color: rgba(88, 166, 255, 0.35);
+    background: var(--github-accent-muted);
+    color: #cae8ff;
+  }
+
+  .github-label-green {
+    border-color: rgba(63, 185, 80, 0.35);
+    background: var(--github-success-muted);
+    color: #aff5b4;
+  }
+
+  .github-label-yellow {
+    border-color: rgba(210, 153, 34, 0.35);
+    background: var(--github-attention-muted);
+    color: #f8e3a1;
+  }
+
+  .github-label-red {
+    border-color: rgba(248, 81, 73, 0.35);
+    background: var(--github-danger-muted);
+    color: #ffdcd7;
+  }
+
+  .github-label-purple {
+    border-color: rgba(163, 113, 247, 0.38);
+    background: var(--github-done-muted);
+    color: #e2ccff;
+  }
+
+  .github-terminal {
+    border: 1px solid var(--github-border);
+    border-radius: 8px;
+    background:
+      linear-gradient(180deg, rgba(1, 4, 9, 0.98), rgba(13, 17, 23, 0.96)),
+      var(--github-bg-subtle);
+    color: #c9d1d9;
+    font-family:
+      "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    box-shadow: inset 0 1px 0 rgba(240, 246, 252, 0.04);
+  }
+
+  .github-readme {
+    border: 1px solid var(--github-border);
+    border-radius: 8px;
+    background: rgba(13, 17, 23, 0.92);
+    color: var(--github-text);
+  }
+
+  .github-file-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    border-top: 1px solid var(--github-border-muted);
+    padding: 0.65rem 0.85rem;
+    color: #c9d1d9;
+    transition: background 160ms ease;
+  }
+
+  .github-file-row:hover {
+    background: rgba(88, 166, 255, 0.08);
+  }
+
+  .github-code-block {
+    border: 1px solid var(--github-border);
+    border-radius: 8px;
+    background: var(--github-bg-subtle);
+    color: #c9d1d9;
+    font-family:
+      "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  }
+
+  .github-tab {
+    border-bottom: 2px solid transparent;
+    color: var(--github-muted);
+    transition:
+      color 160ms ease,
+      border-color 160ms ease,
+      background 160ms ease;
+  }
+
+  .github-tab:hover,
+  .github-tab-active {
+    border-color: var(--github-accent);
+    color: var(--github-text);
+    background: rgba(88, 166, 255, 0.08);
+  }
+
+  .github-status-success,
+  .github-status-warning,
+  .github-status-danger,
+  .github-status-info {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    border-radius: 999px;
+    padding: 0.32rem 0.7rem;
+    font-size: 0.76rem;
+    font-weight: 700;
+  }
+
+  .github-status-success {
+    border: 1px solid rgba(63, 185, 80, 0.35);
+    background: var(--github-success-muted);
+    color: #aff5b4;
+  }
+
+  .github-status-warning {
+    border: 1px solid rgba(210, 153, 34, 0.35);
+    background: var(--github-attention-muted);
+    color: #f8e3a1;
+  }
+
+  .github-status-danger {
+    border: 1px solid rgba(248, 81, 73, 0.35);
+    background: var(--github-danger-muted);
+    color: #ffdcd7;
+  }
+
+  .github-status-info {
+    border: 1px solid rgba(88, 166, 255, 0.35);
+    background: var(--github-accent-muted);
+    color: #cae8ff;
+  }
+
+  .github-repo-header {
+    border: 1px solid var(--github-border);
+    border-radius: 8px;
+    background:
+      linear-gradient(180deg, rgba(22, 27, 34, 0.98), rgba(13, 17, 23, 0.96)),
+      var(--github-canvas);
+  }
+
+  .github-actions-check {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    border-top: 1px solid var(--github-border-muted);
+    padding: 0.74rem 0.9rem;
+    color: #c9d1d9;
   }
 }

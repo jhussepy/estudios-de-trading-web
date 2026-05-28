@@ -7,6 +7,7 @@ import HeroSection from "@/components/HeroSection";
 import JournalSection from "@/components/JournalSection";
 import Navbar from "@/components/Navbar";
 import ProgressDashboard from "@/components/ProgressDashboard";
+import READMESection from "@/components/READMESection";
 import RoadmapSection from "@/components/RoadmapSection";
 
 export default function Home() {
@@ -14,6 +15,7 @@ export default function Home() {
     <main className="site-shell">
       <Navbar />
       <HeroSection />
+      <READMESection />
       <ProgressDashboard />
       <RoadmapSection />
       <ConceptLibrary />

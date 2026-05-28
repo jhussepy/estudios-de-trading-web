@@ -2,15 +2,13 @@
 
 import type { ReactNode } from "react";
 import { motion } from "framer-motion";
-import { AlertTriangle, BookOpen, Layers3, Route, Target } from "lucide-react";
+import { AlertTriangle, BookOpen, FileText, FolderOpen, Route, Target } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { conceptData } from "@/data/conceptData";
 
 export default function ConceptLibrary() {
@@ -24,68 +22,69 @@ export default function ConceptLibrary() {
       >
         <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div>
-            <p className="section-kicker text-emerald-200">Biblioteca de conceptos</p>
+            <p className="section-kicker text-[var(--github-success)]">docs/</p>
             <h2 className="mt-3 text-3xl font-black text-white md:text-4xl">
-              Glosario operativo del sistema
+              Documentación técnica del sistema
             </h2>
           </div>
           <p className="max-w-xl text-sm leading-6 muted-readable">
-            Cada concepto se conecta con uso estrategico, error comun y modulo relacionado para que
-            no sea teoria suelta.
+            Cada concepto funciona como un archivo markdown: definición, uso estratégico, error
+            común y módulo relacionado.
           </p>
         </div>
 
-        <Card className="premium-border">
-          <CardHeader className="border-b border-white/10">
-            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-              <div className="flex items-center gap-3">
-                <span className="flex size-10 items-center justify-center rounded-md bg-emerald-300/10 text-emerald-200">
-                  <BookOpen className="size-5" />
-                </span>
-                <div>
-                  <CardTitle>Conceptos institucionales</CardTitle>
-                  <p className="mt-1 text-sm text-slate-300">
-                    ICT, volumen, order flow, macro, cuantitativo y riesgo.
-                  </p>
+        <div className="github-readme overflow-hidden">
+          <div className="flex flex-col gap-4 border-b border-[var(--github-border)] px-5 py-4 md:flex-row md:items-center md:justify-between">
+            <div className="flex items-center gap-3">
+              <FolderOpen className="size-5 text-[var(--github-accent)]" />
+              <div>
+                <div className="text-sm font-semibold text-[var(--github-muted)]">docs/</div>
+                <div className="text-base font-bold text-[var(--github-text)]">
+                  Concept Library
                 </div>
               </div>
-              <Badge variant="emerald">{conceptData.length} conceptos</Badge>
             </div>
-          </CardHeader>
-          <CardContent className="pt-2">
-            <Accordion type="multiple" className="grid gap-x-8 md:grid-cols-2">
+            <span className="github-label github-label-blue">{conceptData.length} markdown files</span>
+          </div>
+
+          <div className="p-3 md:p-5">
+            <Accordion type="multiple" className="grid gap-x-5 md:grid-cols-2">
               {conceptData.map((concept) => (
-                <AccordionItem key={concept.name} value={concept.name}>
+                <AccordionItem
+                  key={concept.name}
+                  value={concept.name}
+                  className="mb-3 rounded-lg border border-[var(--github-border)] bg-[var(--github-canvas)] px-4"
+                >
                   <AccordionTrigger>
-                    <span className="flex items-center gap-3">
-                      <Layers3 className="size-4 text-cyan-200" />
-                      {concept.name}
+                    <span className="flex min-w-0 items-center gap-3">
+                      <FileText className="size-4 shrink-0 text-[var(--github-accent)]" />
+                      <span className="truncate text-[var(--github-accent)]">{concept.docPath}</span>
                     </span>
                   </AccordionTrigger>
                   <AccordionContent>
                     <div className="mb-4 flex flex-wrap gap-2">
-                      <Badge variant="muted">{concept.category}</Badge>
-                      <Badge>{concept.module}</Badge>
+                      <span className="github-label github-label-blue">{concept.category}</span>
+                      <span className="github-label github-label-purple">{concept.name}</span>
                     </div>
                     <div className="grid gap-3">
-                      <ConceptBlock
+                      <DocBlock
                         icon={<BookOpen className="size-4" />}
-                        label="Definicion simple"
+                        label="Definición simple"
                         text={concept.definition}
                       />
-                      <ConceptBlock
+                      <DocBlock
                         icon={<Target className="size-4" />}
-                        label="Como se usa en mi estrategia"
+                        label="Uso en mi estrategia"
                         text={concept.strategyUse}
                       />
-                      <ConceptBlock
+                      <DocBlock
                         icon={<AlertTriangle className="size-4" />}
-                        label="Error comun"
+                        label="Error común"
                         text={concept.commonMistake}
                       />
-                      <ConceptBlock
+                      <DocBlock
                         icon={<Route className="size-4" />}
-                        label="Modulo relacionado"
+                        label="Módulo relacionado"
                         text={concept.module}
                         terminal
                       />
@@ -94,14 +93,14 @@ export default function ConceptLibrary() {
                 </AccordionItem>
               ))}
             </Accordion>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </motion.div>
     </section>
   );
 }
 
-function ConceptBlock({
+function DocBlock({
   icon,
   label,
   text,
@@ -113,12 +112,12 @@ function ConceptBlock({
   terminal?: boolean;
 }) {
   return (
-    <div className="rounded-md border border-white/10 bg-white/[0.035] p-3">
-      <div className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">
-        <span className="text-cyan-200">{icon}</span>
+    <div className="rounded-md border border-[var(--github-border-muted)] bg-[var(--github-bg-subtle)] p-3">
+      <div className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--github-muted)]">
+        <span className="text-[var(--github-accent)]">{icon}</span>
         {label}
       </div>
-      <p className={`${terminal ? "terminal-text text-cyan-100" : "text-slate-300"} text-sm leading-6`}>
+      <p className={`${terminal ? "terminal-text text-[#cae8ff]" : "text-[#c9d1d9]"} text-sm leading-6`}>
         {text}
       </p>
     </div>

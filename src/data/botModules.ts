@@ -1,6 +1,6 @@
 export type BotModule = {
   name: string;
-  layer: "Datos" | "Estructura" | "Confirmacion" | "Cuantitativo" | "Riesgo" | "Reporte";
+  layer: "Datos" | "Estructura" | "Confirmación" | "Cuantitativo" | "Riesgo" | "Reporte";
   description: string;
 };
 
@@ -11,11 +11,16 @@ export type PipelineStage = {
   accent: "cyan" | "violet" | "emerald" | "amber";
 };
 
+export type FileTreeGroup = {
+  root: string;
+  files: Array<{ name: string; type: "file" | "folder"; label?: string }>;
+};
+
 export const botModules: BotModule[] = [
   {
     name: "MT5 Connector",
     layer: "Datos",
-    description: "Lectura simulada o historica de precios; sin permisos para ejecutar ordenes.",
+    description: "Lectura simulada o histórica de precios; sin permisos para ejecutar órdenes.",
   },
   {
     name: "Market Structure",
@@ -25,12 +30,12 @@ export const botModules: BotModule[] = [
   {
     name: "Liquidity",
     layer: "Estructura",
-    description: "Mapea maximos, minimos, barridas y pools visibles.",
+    description: "Mapea máximos, mínimos, barridas y pools visibles.",
   },
   {
     name: "FVG Detector",
     layer: "Estructura",
-    description: "Detecta ineficiencias y zonas pendientes de mitigacion.",
+    description: "Detecta ineficiencias y zonas pendientes de mitigación.",
   },
   {
     name: "Sessions",
@@ -39,13 +44,13 @@ export const botModules: BotModule[] = [
   },
   {
     name: "Volume Profile",
-    layer: "Confirmacion",
+    layer: "Confirmación",
     description: "Calcula POC, VAH, VAL, HVN y LVN para contexto de volumen.",
   },
   {
     name: "Order Flow",
-    layer: "Confirmacion",
-    description: "Resume delta, agresion, absorcion e imbalances.",
+    layer: "Confirmación",
+    description: "Resume delta, agresión, absorción e imbalances.",
   },
   {
     name: "News Analyzer",
@@ -55,17 +60,17 @@ export const botModules: BotModule[] = [
   {
     name: "Sentiment Analyzer",
     layer: "Datos",
-    description: "Evalua tono macro y sesgo informativo sin recomendar ejecucion.",
+    description: "Evalúa tono macro y sesgo informativo sin recomendar ejecución.",
   },
   {
     name: "Returns Analyzer",
     layer: "Cuantitativo",
-    description: "Mide retornos, distribucion y comportamiento reciente.",
+    description: "Mide retornos, distribución y comportamiento reciente.",
   },
   {
     name: "Volatility Analyzer",
     layer: "Cuantitativo",
-    description: "Calcula volatilidad rolling y compresion o expansion.",
+    description: "Calcula volatilidad rolling y compresión o expansión.",
   },
   {
     name: "Anomaly Detector",
@@ -75,12 +80,12 @@ export const botModules: BotModule[] = [
   {
     name: "Regime Detector",
     layer: "Cuantitativo",
-    description: "Clasifica rango, tendencia, alta volatilidad o sesion neutral.",
+    description: "Clasifica rango, tendencia, alta volatilidad o sesión neutral.",
   },
   {
     name: "Backtest Analyzer",
     layer: "Reporte",
-    description: "Resume metricas historicas del setup simulado.",
+    description: "Resume métricas históricas del setup simulado.",
   },
   {
     name: "Monte Carlo",
@@ -90,36 +95,36 @@ export const botModules: BotModule[] = [
   {
     name: "VaR Calculator",
     layer: "Riesgo",
-    description: "Estima perdida potencial bajo niveles de confianza definidos.",
+    description: "Estima pérdida potencial bajo niveles de confianza definidos.",
   },
   {
     name: "Risk Manager",
     layer: "Riesgo",
-    description: "Evalua exposicion, riesgo relativo y disciplina operativa.",
+    description: "Evalúa exposición, riesgo relativo y disciplina operativa.",
   },
   {
     name: "Report Generator",
     layer: "Reporte",
-    description: "Genera reportes educativos con conclusion y nivel de confianza.",
+    description: "Genera reportes educativos con conclusión y nivel de confianza.",
   },
 ];
 
 export const architecturePipeline: PipelineStage[] = [
   {
     title: "Datos",
-    description: "Entrada historica o simulada y contexto horario.",
+    description: "Entrada histórica o simulada y contexto horario.",
     modules: ["MT5 Connector", "Sessions"],
     accent: "cyan",
   },
   {
     title: "Estructura",
-    description: "Direccion, swings, liquidez y zonas de ineficiencia.",
+    description: "Dirección, swings, liquidez y zonas de ineficiencia.",
     modules: ["Market Structure", "Liquidity", "FVG Detector"],
     accent: "violet",
   },
   {
     title: "Volumen/Order Flow",
-    description: "Aceptacion, rechazo, delta, absorcion e imbalance.",
+    description: "Aceptación, rechazo, delta, absorción e imbalance.",
     modules: ["Volume Profile", "Order Flow"],
     accent: "emerald",
   },
@@ -131,13 +136,13 @@ export const architecturePipeline: PipelineStage[] = [
   },
   {
     title: "Cuantitativo",
-    description: "Retornos, volatilidad, anomalias y regimen.",
+    description: "Retornos, volatilidad, anomalías y régimen.",
     modules: ["Returns Analyzer", "Volatility Analyzer", "Anomaly Detector", "Regime Detector"],
     accent: "cyan",
   },
   {
     title: "Riesgo",
-    description: "Filtro de exposicion y escenarios de perdida simulada.",
+    description: "Filtro de exposición y escenarios de pérdida simulada.",
     modules: ["Risk Manager", "Monte Carlo", "VaR Calculator"],
     accent: "amber",
   },
@@ -146,5 +151,47 @@ export const architecturePipeline: PipelineStage[] = [
     description: "Salida educativa, journal y backtesting.",
     modules: ["Report Generator", "Journal", "Backtesting"],
     accent: "emerald",
+  },
+];
+
+export const repositoryTree: FileTreeGroup[] = [
+  {
+    root: "src/",
+    files: [
+      { name: "mt5_connector.py", type: "file", label: "analysis" },
+      { name: "market_structure.py", type: "file", label: "analysis" },
+      { name: "liquidity.py", type: "file", label: "analysis" },
+      { name: "fvg_detector.py", type: "file", label: "analysis" },
+      { name: "sessions.py", type: "file", label: "analysis" },
+      { name: "volume_profile.py", type: "file", label: "analysis" },
+      { name: "order_flow.py", type: "file", label: "analysis" },
+      { name: "news_analyzer.py", type: "file", label: "analysis" },
+      { name: "sentiment_analyzer.py", type: "file", label: "analysis" },
+      { name: "returns_analyzer.py", type: "file", label: "analysis" },
+      { name: "volatility_analyzer.py", type: "file", label: "analysis" },
+      { name: "anomaly_detector.py", type: "file", label: "analysis" },
+      { name: "regime_detector.py", type: "file", label: "analysis" },
+      { name: "risk_manager.py", type: "file", label: "risk" },
+      { name: "monte_carlo.py", type: "file", label: "risk" },
+      { name: "var_calculator.py", type: "file", label: "risk" },
+      { name: "report_generator.py", type: "file", label: "report" },
+    ],
+  },
+  {
+    root: "reports/",
+    files: [
+      { name: "daily/", type: "folder", label: "report" },
+      { name: "weekly/", type: "folder", label: "report" },
+      { name: "backtesting/", type: "folder", label: "report" },
+      { name: "monte_carlo/", type: "folder", label: "risk" },
+    ],
+  },
+  {
+    root: "data/",
+    files: [
+      { name: "journal/", type: "folder", label: "report" },
+      { name: "raw/", type: "folder", label: "analysis" },
+      { name: "processed/", type: "folder", label: "analysis" },
+    ],
   },
 ];

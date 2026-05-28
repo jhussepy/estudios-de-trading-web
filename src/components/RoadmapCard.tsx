@@ -1,29 +1,26 @@
-import { CheckCircle2, FileCode2, Layers3, Target, Zap } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
+import { BookOpen, CircleDot, FileCode2, GitBranch, RadioTower } from "lucide-react";
 import type { RoadmapAccent, RoadmapWeek } from "@/data/roadmapData";
 
-const difficultyVariant = {
-  Base: "emerald",
-  Media: "default",
-  Alta: "secondary",
-  Profesional: "warning",
+const difficultyLabel = {
+  Base: "github-label-green",
+  Media: "github-label-blue",
+  Alta: "github-label-purple",
+  Profesional: "github-label-yellow",
 } as const;
 
-const accentClasses: Record<RoadmapAccent, string> = {
-  cyan: "border-cyan-300/25 hover:border-cyan-300/45",
-  violet: "border-violet-300/25 hover:border-violet-300/45",
-  emerald: "border-emerald-300/25 hover:border-emerald-300/45",
-  amber: "border-amber-300/25 hover:border-amber-300/45",
-  rose: "border-rose-300/25 hover:border-rose-300/45",
-};
+const statusLabel = {
+  "En curso": "github-label-green",
+  Planificado: "github-label-blue",
+  "Bloque clave": "github-label-yellow",
+  Integración: "github-label-purple",
+} as const;
 
-const numberClasses: Record<RoadmapAccent, string> = {
-  cyan: "from-cyan-300/20 to-cyan-300/5 text-cyan-100",
-  violet: "from-violet-400/20 to-violet-400/5 text-violet-100",
-  emerald: "from-emerald-300/20 to-emerald-300/5 text-emerald-100",
-  amber: "from-amber-300/20 to-amber-300/5 text-amber-100",
-  rose: "from-rose-300/20 to-rose-300/5 text-rose-100",
+const accentText: Record<RoadmapAccent, string> = {
+  cyan: "text-[var(--github-accent)]",
+  violet: "text-[var(--github-done)]",
+  emerald: "text-[var(--github-success)]",
+  amber: "text-[var(--github-attention)]",
+  rose: "text-[var(--github-danger)]",
 };
 
 export default function RoadmapCard({
@@ -34,63 +31,75 @@ export default function RoadmapCard({
   accent: RoadmapAccent;
 }) {
   return (
-    <Card className={`hover-lift h-full ${accentClasses[accent]}`}>
-      <CardContent className="p-5">
-        <div className="mb-5 flex items-start justify-between gap-4">
-          <div
-            className={`flex size-14 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-gradient-to-br text-xl font-black ${numberClasses[accent]}`}
-          >
-            {String(week.week).padStart(2, "0")}
-          </div>
-          <div className="flex flex-wrap justify-end gap-2">
-            <Badge variant={difficultyVariant[week.difficulty]}>{week.difficulty}</Badge>
-            <Badge variant="muted">{week.status}</Badge>
-          </div>
-        </div>
-
-        <h3 className="text-lg font-black leading-7 text-white">{week.title}</h3>
-        <p className="mt-3 text-sm leading-6 text-slate-300">{week.objective}</p>
-
-        <div className="mt-5">
-          <div className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-violet-200">
-            <Zap className="size-4" /> Conceptos
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {week.concepts.map((concept) => (
-              <Badge key={concept} variant="secondary">
-                {concept}
-              </Badge>
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-5 grid gap-3 border-t border-white/10 pt-4">
-          <div className="flex gap-3">
-            <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-emerald-300" />
-            <p className="text-sm leading-6 text-slate-400">{week.practice}</p>
-          </div>
-          <div className="grid gap-2 sm:grid-cols-2">
-            <div className="rounded-md border border-white/10 bg-white/[0.035] p-3">
-              <div className="mb-1 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
-                <FileCode2 className="size-3.5 text-cyan-200" />
-                Entregable
+    <article className="github-card github-card-hover h-full overflow-hidden">
+      <div className="border-b border-[var(--github-border)] p-5">
+        <div className="mb-4 flex items-start justify-between gap-4">
+          <div className="flex min-w-0 items-center gap-3">
+            <span className="flex size-10 shrink-0 items-center justify-center rounded-md border border-[var(--github-border)] bg-[var(--github-canvas-subtle)]">
+              <GitBranch className={`size-5 ${accentText[accent]}`} />
+            </span>
+            <div className="min-w-0">
+              <h3 className="truncate text-base font-bold text-[var(--github-accent)]">
+                {week.repoName}
+              </h3>
+              <div className="mt-1 flex items-center gap-2 text-xs text-[var(--github-muted)]">
+                <CircleDot className="size-3" />
+                Semana {week.week}
               </div>
-              <p className="terminal-text text-xs leading-5 text-slate-300">{week.deliverable}</p>
-            </div>
-            <div className="rounded-md border border-white/10 bg-white/[0.035] p-3">
-              <div className="mb-1 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
-                <Layers3 className="size-3.5 text-emerald-200" />
-                Modulo
-              </div>
-              <p className="terminal-text text-xs leading-5 text-slate-300">{week.module}</p>
             </div>
           </div>
-          <div className="flex items-center gap-2 text-xs text-slate-500">
-            <Target className="size-3.5 text-cyan-200" />
-            Objetivo claro, practica medible y salida auditable.
+          <span className={`github-label ${statusLabel[week.status]}`}>{week.status}</span>
+        </div>
+
+        <p className="text-sm leading-6 text-[#c9d1d9]">{week.repoDescription}</p>
+      </div>
+
+      <div className="grid gap-4 p-5">
+        <div className="flex flex-wrap gap-2">
+          {week.concepts.map((concept, index) => (
+            <span
+              key={concept}
+              className={`github-label ${
+                index % 3 === 0
+                  ? "github-label-blue"
+                  : index % 3 === 1
+                    ? "github-label-purple"
+                    : "github-label-green"
+              }`}
+            >
+              {concept}
+            </span>
+          ))}
+          <span className={`github-label ${difficultyLabel[week.difficulty]}`}>
+            {week.difficulty}
+          </span>
+        </div>
+
+        <div className="github-code-block p-3 text-xs leading-6">
+          <div className="flex items-center gap-2 text-[var(--github-muted)]">
+            <BookOpen className="size-3.5" />
+            objective
+          </div>
+          <div className="mt-1 text-[#c9d1d9]">{week.objective}</div>
+        </div>
+
+        <div className="grid gap-2 sm:grid-cols-2">
+          <div className="rounded-md border border-[var(--github-border)] bg-[var(--github-bg-subtle)] p-3">
+            <div className="mb-1 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--github-muted)]">
+              <FileCode2 className="size-3.5 text-[var(--github-accent)]" />
+              Entregable
+            </div>
+            <p className="terminal-text text-xs leading-5 text-[#c9d1d9]">{week.deliverable}</p>
+          </div>
+          <div className="rounded-md border border-[var(--github-border)] bg-[var(--github-bg-subtle)] p-3">
+            <div className="mb-1 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--github-muted)]">
+              <RadioTower className="size-3.5 text-[var(--github-success)]" />
+              Módulo
+            </div>
+            <p className="terminal-text text-xs leading-5 text-[#c9d1d9]">{week.module}</p>
           </div>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </article>
   );
 }
