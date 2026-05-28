@@ -72,7 +72,7 @@ export default function JournalSection() {
                       <span className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--github-muted)]">
                         {label}
                       </span>
-                      <span className="max-w-[58%] text-right text-sm font-semibold text-[var(--github-text)]">
+                      <span className="max-w-full text-left text-sm font-semibold text-[var(--github-text)] [overflow-wrap:anywhere] sm:max-w-[58%] sm:text-right">
                         {value}
                       </span>
                     </div>

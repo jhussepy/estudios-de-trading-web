@@ -106,10 +106,10 @@ function ReadmeList({
 
   return (
     <div className="github-card p-4">
-      <h3 className="mb-3 flex items-center gap-2 text-sm font-bold text-[var(--github-text)]">
+      <div className="mb-3 flex items-center gap-2 text-sm font-bold text-[var(--github-text)]">
         <FileCode2 className="size-4 text-[var(--github-accent)]" />
         ## {title}
-      </h3>
+      </div>
       <div className="grid gap-2">
         {items.map((item) => (
           <div key={item} className="flex gap-2 text-sm leading-6 text-[#c9d1d9]">

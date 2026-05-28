@@ -53,7 +53,7 @@ export default function ConceptLibrary() {
                 <AccordionItem
                   key={concept.name}
                   value={concept.name}
-                  className="mb-3 rounded-lg border border-[var(--github-border)] bg-[var(--github-canvas)] px-4"
+                  className="github-card-hover mb-3 rounded-lg border border-[var(--github-border)] bg-[var(--github-canvas)] px-4"
                 >
                   <AccordionTrigger>
                     <span className="flex min-w-0 items-center gap-3">

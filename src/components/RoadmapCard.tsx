@@ -33,13 +33,13 @@ export default function RoadmapCard({
   return (
     <article className="github-card github-card-hover h-full overflow-hidden">
       <div className="border-b border-[var(--github-border)] p-5">
-        <div className="mb-4 flex items-start justify-between gap-4">
+        <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div className="flex min-w-0 items-center gap-3">
             <span className="flex size-10 shrink-0 items-center justify-center rounded-md border border-[var(--github-border)] bg-[var(--github-canvas-subtle)]">
               <GitBranch className={`size-5 ${accentText[accent]}`} />
             </span>
             <div className="min-w-0">
-              <h3 className="truncate text-base font-bold text-[var(--github-accent)]">
+              <h3 className="text-base font-bold leading-6 text-[var(--github-accent)] [overflow-wrap:anywhere]">
                 {week.repoName}
               </h3>
               <div className="mt-1 flex items-center gap-2 text-xs text-[var(--github-muted)]">
@@ -89,14 +89,18 @@ export default function RoadmapCard({
               <FileCode2 className="size-3.5 text-[var(--github-accent)]" />
               Entregable
             </div>
-            <p className="terminal-text text-xs leading-5 text-[#c9d1d9]">{week.deliverable}</p>
+            <p className="terminal-text text-xs leading-5 text-[#c9d1d9] [overflow-wrap:anywhere]">
+              {week.deliverable}
+            </p>
           </div>
           <div className="rounded-md border border-[var(--github-border)] bg-[var(--github-bg-subtle)] p-3">
             <div className="mb-1 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--github-muted)]">
               <RadioTower className="size-3.5 text-[var(--github-success)]" />
               Módulo
             </div>
-            <p className="terminal-text text-xs leading-5 text-[#c9d1d9]">{week.module}</p>
+            <p className="terminal-text text-xs leading-5 text-[#c9d1d9] [overflow-wrap:anywhere]">
+              {week.module}
+            </p>
           </div>
         </div>
       </div>

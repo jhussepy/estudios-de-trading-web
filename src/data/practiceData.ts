@@ -60,8 +60,8 @@ export const assistantCockpitPanels = [
   {
     title: "Liquidity",
     items: [
-      ["Asian low", "Swept"],
-      ["Next pool", "Sell-side liquidity"],
+      ["Asian low", "Barrido"],
+      ["Siguiente pool", "Liquidez vendedora"],
       ["Equal highs/lows", "Observar zona"],
     ],
     accent: "emerald",
@@ -149,7 +149,7 @@ export const backtestingCards = [
 ];
 
 export const backtestingPrinciples = [
-  "Cada setup debe pasar revisión: contexto, proceso documentado, resultado y métrica.",
+  "Cada setup se valida antes de confiar en él.",
   "Cada operación se convierte en dato.",
   "Cada error se convierte en regla.",
 ];

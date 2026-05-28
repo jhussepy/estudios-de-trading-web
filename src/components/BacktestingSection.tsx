@@ -61,7 +61,7 @@ export default function BacktestingSection() {
               <div>
                 <h3 className="font-bold text-[var(--github-text)]">setup-review.pr</h3>
                 <p className="text-sm text-[var(--github-muted)]">
-                  Cada setup debe pasar revisión antes de confiar en él.
+                  Review técnico antes de convertir una hipótesis en regla.
                 </p>
               </div>
             </div>

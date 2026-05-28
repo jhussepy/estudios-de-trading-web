@@ -219,6 +219,20 @@ body {
     box-shadow: 0 16px 50px rgba(1, 4, 9, 0.34);
   }
 
+  .github-button-glow {
+    box-shadow: 0 0 0 rgba(88, 166, 255, 0);
+    transition:
+      border-color 180ms ease,
+      background 180ms ease,
+      box-shadow 180ms ease,
+      transform 180ms ease;
+  }
+
+  .github-button-glow:hover {
+    box-shadow: 0 0 34px rgba(88, 166, 255, 0.22);
+    transform: translateY(-1px);
+  }
+
   .github-card-hover {
     transition:
       border-color 180ms ease,
@@ -250,6 +264,14 @@ body {
     font-weight: 700;
     line-height: 1;
     white-space: nowrap;
+    transition:
+      border-color 160ms ease,
+      background 160ms ease,
+      transform 160ms ease;
+  }
+
+  .github-label:hover {
+    transform: translateY(-1px);
   }
 
   .github-label-blue {
@@ -292,6 +314,31 @@ body {
     font-family:
       "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
     box-shadow: inset 0 1px 0 rgba(240, 246, 252, 0.04);
+  }
+
+  .github-terminal-scroll {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-color: var(--github-border) var(--github-bg-subtle);
+    scrollbar-width: thin;
+  }
+
+  .github-terminal-scroll::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .github-terminal-scroll::-webkit-scrollbar-track {
+    background: var(--github-bg-subtle);
+  }
+
+  .github-terminal-scroll::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: var(--github-border);
+  }
+
+  .github-terminal-line {
+    width: max-content;
+    min-width: 100%;
   }
 
   .github-readme {
@@ -352,6 +399,17 @@ body {
     padding: 0.32rem 0.7rem;
     font-size: 0.76rem;
     font-weight: 700;
+    transition:
+      border-color 160ms ease,
+      box-shadow 160ms ease,
+      transform 160ms ease;
+  }
+
+  .github-status-success:hover,
+  .github-status-warning:hover,
+  .github-status-danger:hover,
+  .github-status-info:hover {
+    transform: translateY(-1px);
   }
 
   .github-status-success {
@@ -393,5 +451,87 @@ body {
     border-top: 1px solid var(--github-border-muted);
     padding: 0.74rem 0.9rem;
     color: #c9d1d9;
+    transition:
+      background 160ms ease,
+      transform 160ms ease;
+  }
+
+  .github-actions-check:hover {
+    background: rgba(88, 166, 255, 0.08);
+    transform: translateX(2px);
+  }
+
+  .github-file-tree-scroll {
+    overflow-x: auto;
+    scrollbar-color: var(--github-border) var(--github-bg-subtle);
+    scrollbar-width: thin;
+  }
+
+  .github-file-tree-scroll::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .github-file-tree-scroll::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: var(--github-border);
+  }
+
+  @media (max-width: 640px) {
+    .container-shell {
+      width: min(100% - 1rem, 1180px);
+    }
+
+    .github-card,
+    .github-readme,
+    .github-terminal,
+    .github-repo-header {
+      border-radius: 7px;
+    }
+
+    .github-file-row {
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      padding: 0.72rem 0.75rem;
+    }
+
+    .github-file-row-nowrap {
+      flex-wrap: nowrap;
+    }
+
+    .github-label {
+      max-width: 100%;
+      white-space: normal;
+      line-height: 1.2;
+    }
+
+    .github-status-success,
+    .github-status-warning,
+    .github-status-danger,
+    .github-status-info {
+      white-space: normal;
+      line-height: 1.2;
+    }
+
+    .github-terminal-scroll {
+      padding: 0.9rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+    }
+
+    .github-card-hover:hover,
+    .github-button-glow:hover,
+    .github-actions-check:hover {
+      transform: none;
+    }
   }
 }

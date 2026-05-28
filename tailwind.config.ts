@@ -50,10 +50,20 @@ const config: Config = {
           "0%, 100%": { opacity: "0.55" },
           "50%": { opacity: "1" },
         },
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
       },
       animation: {
         "grid-shift": "grid-shift 28s linear infinite",
         "pulse-glow": "pulseGlow 3.2s ease-in-out infinite",
+        "accordion-down": "accordion-down 180ms ease-out",
+        "accordion-up": "accordion-up 160ms ease-out",
       },
     },
   },

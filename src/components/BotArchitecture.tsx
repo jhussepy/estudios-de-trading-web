@@ -73,8 +73,12 @@ export default function BotArchitecture() {
                 <div className="flex items-center gap-3">
                   <Gauge className="size-5 text-[var(--github-accent)]" />
                   <div>
-                    <h3 className="font-bold text-[var(--github-text)]">No execution layer</h3>
-                    <p className="text-sm text-[var(--github-muted)]">Sin capa de ejecución</p>
+                    <h3 className="font-bold text-[var(--github-text)]">
+                      No execution layer / Sin capa de ejecución
+                    </h3>
+                    <p className="text-sm text-[var(--github-muted)]">
+                      Pipeline de análisis sin módulo operativo.
+                    </p>
                   </div>
                 </div>
                 <div className="flex flex-wrap gap-2">
@@ -116,11 +120,11 @@ export default function BotArchitecture() {
                   <p className="text-sm text-[var(--github-muted)]">Trading analysis modules</p>
                 </div>
               </div>
-              <div>
+              <div className="github-file-tree-scroll">
                 {repositoryTree.map((group) => (
                   <div key={group.root}>
-                    <div className="github-file-row bg-[var(--github-canvas-subtle)]">
-                      <span className="flex items-center gap-2 font-semibold text-[var(--github-text)]">
+                    <div className="github-file-row github-file-row-nowrap bg-[var(--github-canvas-subtle)]">
+                      <span className="flex min-w-0 items-center gap-2 font-semibold text-[var(--github-text)]">
                         <Folder className="size-4 text-[var(--github-accent)]" />
                         {group.root}
                       </span>
@@ -129,8 +133,11 @@ export default function BotArchitecture() {
                     {group.files.map((file) => {
                       const Icon = file.type === "folder" ? Folder : FileCode2;
                       return (
-                        <div key={`${group.root}-${file.name}`} className="github-file-row pl-8">
-                          <span className="flex min-w-0 items-center gap-2 text-sm">
+                        <div
+                          key={`${group.root}-${file.name}`}
+                          className="github-file-row github-file-row-nowrap pl-4 sm:pl-8"
+                        >
+                          <span className="flex min-w-0 flex-1 items-center gap-2 text-sm">
                             <Icon className="size-4 shrink-0 text-[var(--github-muted)]" />
                             <span className="truncate terminal-text">{file.name}</span>
                           </span>

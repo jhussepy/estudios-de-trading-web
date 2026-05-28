@@ -79,7 +79,11 @@ export default function HeroSection() {
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button asChild size="lg" className="group h-12 bg-[var(--github-accent)] text-[#0d1117] hover:bg-[#79c0ff]">
+            <Button
+              asChild
+              size="lg"
+              className="github-button-glow group h-12 bg-[var(--github-accent)] text-[#0d1117] hover:bg-[#79c0ff]"
+            >
               <a href="#readme">
                 Abrir README <ArrowRight className="transition-transform group-hover:translate-x-1" />
               </a>
@@ -88,7 +92,7 @@ export default function HeroSection() {
               asChild
               size="lg"
               variant="outline"
-              className="h-12 border-[var(--github-border)] bg-[var(--github-canvas)] hover:border-[var(--github-accent)] hover:bg-[var(--github-accent-muted)]"
+              className="github-button-glow h-12 border-[var(--github-border)] bg-[var(--github-canvas)] hover:border-[var(--github-accent)] hover:bg-[var(--github-accent-muted)]"
             >
               <a href="#asistente">
                 <BrainCircuit /> Ver workflow
@@ -145,6 +149,8 @@ export default function HeroSection() {
                   <span className="github-label github-label-blue">educational</span>
                   <span className="github-label github-label-red">no-execution</span>
                   <span className="github-label github-label-green">risk-first</span>
+                  <span className="github-label github-label-purple">simulated-reports</span>
+                  <span className="github-label github-label-yellow">read-only</span>
                 </div>
                 <p className="text-sm leading-7 text-[#c9d1d9]">
                   Sistema educativo para estudiar estructura de mercado, liquidez, volumen, noticias
@@ -168,27 +174,27 @@ export default function HeroSection() {
               </div>
 
               <div className="github-terminal overflow-hidden">
-                <div className="flex items-center justify-between border-b border-[var(--github-border)] px-4 py-3">
+                <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--github-border)] px-4 py-3">
                   <div className="flex items-center gap-2 text-sm font-semibold text-[var(--github-text)]">
                     <Terminal className="size-4 text-[var(--github-accent)]" />
                     analysis-core.yml
                   </div>
-                  <span className="github-label github-label-purple">Simulated mode</span>
+                  <span className="github-label github-label-purple">Read-only mode</span>
                 </div>
-                <div className="grid gap-1 p-4 text-xs leading-6">
+                <div className="github-terminal-scroll grid gap-1 p-4 text-xs leading-6">
                   {terminalLogs.map((line, index) => (
                     <motion.div
                       key={line}
                       initial={{ opacity: 0, x: -8 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.32, delay: 0.35 + index * 0.08 }}
-                      className="flex items-center gap-2 text-[#c9d1d9]"
+                      className="github-terminal-line flex items-center gap-2 rounded px-2 py-1 text-[#c9d1d9]"
                     >
                       <CheckCircle2 className="size-3.5 text-[var(--github-success)]" />
                       {line}
                     </motion.div>
                   ))}
-                  <div className="mt-2 flex items-center gap-2 rounded-md border border-[var(--github-border)] bg-[var(--github-success-muted)] px-3 py-2 text-[#aff5b4]">
+                  <div className="github-terminal-line mt-2 flex items-center gap-2 rounded-md border border-[var(--github-border)] bg-[var(--github-success-muted)] px-3 py-2 text-[#aff5b4]">
                     <FileCode2 className="size-4" />
                     execution.enabled = false
                   </div>
